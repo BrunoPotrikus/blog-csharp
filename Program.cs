@@ -17,17 +17,16 @@ public class Program
     {
         var connection = new SqlConnection(CONNECTION_STRING);
         connection.Open();
+
         ReadUsers(connection);
-        //ReadUser();
-        //CreateUser();
-        //UpdateUser();
-        //DeleteUser();
+        ReadRoles(connection);
+
         connection.Close();
     }
 
     public static void ReadUsers(SqlConnection connection)
     {
-        var userRepository = new UserRepository(connection);
+        var userRepository = new Repository<User>(connection);
         var users = userRepository.GetAll();
 
         foreach (var user in users)
@@ -36,7 +35,16 @@ public class Program
         }
     }
 
+    public static void ReadRoles(SqlConnection connection)
+    {
+        var roleRepository = new RoleRepository(connection);
+        var roles = roleRepository.GetAll();
 
+        foreach (var role in roles)
+        {
+            Console.WriteLine(role.Name);
+        }
+    }
 
     public static void CreateUser()
     {

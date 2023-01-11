@@ -13,16 +13,12 @@ namespace Blog.Repositories
 
         public void Create(T register)
         {
-            register.Id = 0;
             _connection.Insert<T>(register);
         }
 
         public void Delete(T register)
         {
-            if(register.Id != 0)
-            {
-                _connection.Delete<T>(register);
-            }
+            _connection.Delete<T>(register);
         }
 
         public void Delete(int id)
@@ -46,10 +42,7 @@ namespace Blog.Repositories
 
         public void Update(T register)
         {
-            if(register.Id != 0)
-            {
-                _connection.Update<T>(register);
-            }
+            _connection.Update<T>(register);
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Blog.Models;
+using Microsoft.Data.SqlClient;
 
 namespace Blog.Interfaces
 {
@@ -15,5 +12,11 @@ namespace Blog.Interfaces
         public string Bio{ get; set; }
         public string Image { get; set; }
         public string Slug { get; set; }
+
+        public void CreateUser(User user);
+        public abstract static User ReadUser(SqlConnection connection, int id);
+        public void UpdateUser(User user);
+        public void DeleteUser(User user);
+        public void DeleteUser(int id);
     }
 }

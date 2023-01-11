@@ -1,5 +1,9 @@
-﻿namespace Blog.Models
+﻿using Dapper.Contrib.Extensions;
+
+namespace Blog.Models
 {
+    [Table("[Category]")]
+
     public class Category
     {
         public int Id { get; set; }

@@ -63,14 +63,14 @@ public class Program
         var user = new User(connection)
         {
             Bio = "Desenvolvimento Backend .NET",
-            Email = "suportedotnet@email.com",
+            Email = "devdotnet@email.com",
             Image = "https://image",
             Name = "Equipe de desenvolvimento .NET",
             PasswordHash = "passwordhash",
-            Slug = "equipe-suporte-dotnet"
+            Slug = "equipe-dev-dotnet"
         };
 
-        user.CreateUser(user);
+        user.CreateRegister(user);
     }
 
     public static void UpdateUser(SqlConnection connection)
@@ -86,7 +86,7 @@ public class Program
             Slug = "equipe-dev-dotnet"
         };
 
-        user.UpdateUser(user);
+        user.UpdateRegister(user);
     }
 
     public static void DeleteUser()

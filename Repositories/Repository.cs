@@ -23,9 +23,6 @@ namespace Blog.Repositories
 
         public void Delete(int id)
         {
-            if (id != 0)
-                return;
-
             var register = _connection.Get<T>(id);
             _connection.Delete<T>(register);
         }

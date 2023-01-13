@@ -1,15 +1,12 @@
-﻿using Blog.Models;
-using Microsoft.Data.SqlClient;
-
-namespace Blog.Interfaces
+﻿namespace Blog.Interfaces
 {
     public interface IRepository<T>
     {
-        public IEnumerable<T> GetAll();
-        public T Get(int id);
-        public void Create(T register);
-        public void Update(T register);
-        public void Delete(T register);
-        public void Delete(int id);
+        IEnumerable<T> GetAll();
+        T Get(int id);
+        void Create(T register);
+        void Update(T register);
+        void Delete(T register);
+        void Delete(int id);
     }
 }

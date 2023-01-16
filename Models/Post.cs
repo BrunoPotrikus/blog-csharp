@@ -1,12 +1,13 @@
 ﻿using Blog.Interfaces;
+using Microsoft.Data.SqlClient;
 
 namespace Blog.Models
 {
-    public class Post : IPost
+    public class Post : Entity
     {
         public int Id { get ;set; }
-        public Category Category { get; set; }
-        public User Author { get; set; }
+        public int CategoryId { get; set; }
+        public int AuthorId { get; set; }
         public string Title { get; set; }
         public string Summary { get; set; }
         public string Body { get; set; }
@@ -14,29 +15,9 @@ namespace Blog.Models
         public DateTime CreateDate { get; set; }
         public DateTime LastUpdateDate { get; set; }
 
-        public void CreatePost(Post post)
+        public Post(SqlConnection conection)
         {
-            
-        }
 
-        public void DeletePost(Post post)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeletePost(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Post GetPost(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdatePost(Post post)
-        {
-            throw new NotImplementedException();
         }
     }
 }

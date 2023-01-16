@@ -15,19 +15,31 @@ public class Program
     public static void Main(string[] args)
     {
         var connection = new SqlConnection(CONNECTION_STRING);
+        var user = new User();
+
+        user.Bio = "Desenvolvimento Backend .NET";
+        user.Email = "devdotnet@email.com";
+        user.Image = "https://image";
+        user.Name = "Felipe";
+        user.PasswordHash = "passwordhash";
+        user.Slug = "equipe-dev-dotnet";
+
         connection.Open();
 
         //ReadUsers(connection);
         //ReadRoles(connection);
         //ReadTags(connection);
-        CreateUser(connection);
+        CreateUser(connection, user);
+        CreateRole(connection, user, "Programação .NET", "programacao-dotnet");
+        CreateUserRole(connection, user);
+        //ReadUserRoles(connection);
 
         connection.Close();
     }
 
     public static void ReadUsers(SqlConnection connection)
     {
-        var repository = new Repository<User>(connection);
+        var repository = new UserRepository(connection);
         var items = repository.GetAll();
 
         foreach (var item in items)
@@ -58,45 +70,66 @@ public class Program
         }
     }
 
-    public static void CreateUser(SqlConnection connection)
+    public static void CreateUser(SqlConnection connection, User user)
     {
-        var user = new User(connection)
-        {
-            Bio = "Desenvolvimento Backend .NET",
-            Email = "devdotnet@email.com",
-            Image = "https://image",
-            Name = "Equipe de desenvolvimento .NET",
-            PasswordHash = "passwordhash",
-            Slug = "equipe-dev-dotnet"
-        };
-
-        user.CreateRegister(user);
+        var repository = new UserRepository(connection);
+        repository.Create(user);
     }
 
-    public static void UpdateUser(SqlConnection connection)
+    public static void CreateRole(SqlConnection connection, User user, string nome, string slug)
     {
-        var user = new User(connection)
-        {
-            Id = 2,
-            Bio = "Desenvolvimento Backend .NET",
-            Email = "devdotnet@email.com",
-            Image = "https://image",
-            Name = "Equipe de suporte .NET",
-            PasswordHash = "passwordhash",
-            Slug = "equipe-dev-dotnet"
-        };
-
-        user.UpdateRegister(user);
+        var repository = new Repository<Role>(connection);
+        user.CreateRole(repository, nome, slug);
     }
 
-    public static void DeleteUser()
+    public static void CreateUserRole(SqlConnection connection, User user)
     {
-        using (var connection = new SqlConnection(CONNECTION_STRING))
+        var repository = new Repository<UserRole>(connection);
+        foreach(var role in user.Roles)
         {
-            var user = connection.Get<User>(2);
-            var updateUser = connection.Delete<User>(user);
-
-            Console.WriteLine($"O usuário {user.Name} foi removido com sucesso");
+            var userRole = new UserRole(user.Id, role.Id);
+            repository.Create(userRole);
         }
     }
+
+    //public static void UpdateUser(SqlConnection connection)
+    //{
+    //    var repository = new UserRepository(connection);
+    //    var user = new User();
+    //    user.Id = 2;
+    //    user.Bio = "Desenvolvimento Backend .NET";
+    //    user.Email = "devdotnet@email.com";
+    //    user.Image = "https://image";
+    //    user.Name = "Chico";
+    //    user.PasswordHash = "passwordhash";
+    //    user.Slug = "equipe-dev-dotnet";
+
+    //    repository.Update(user);
+    //}
+
+    //public static void DeleteUser()
+    //{
+    //    using (var connection = new SqlConnection(CONNECTION_STRING))
+    //    {
+    //        var user = connection.Get<User>(2);
+    //        var updateUser = connection.Delete<User>(user);
+
+    //        Console.WriteLine($"O usuário {user.Name} foi removido com sucesso");
+    //    }
+    //}
+
+    //public static void ReadUserRoles(SqlConnection connection)
+    //{
+    //    var repository = new UserRepository(connection);
+    //    var items = repository.GetUserRoles();
+
+    //    foreach(var item in items)
+    //    {
+    //        Console.WriteLine(item.Name);
+    //        foreach(var role in item.Roles)
+    //        {
+    //            Console.WriteLine(role.Name);
+    //        }
+    //    }
+    //}
 }

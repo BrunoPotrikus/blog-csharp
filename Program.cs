@@ -17,12 +17,23 @@ public class Program
         var connection = new SqlConnection(CONNECTION_STRING);
         var user = new User();
 
-        user.Bio = "Desenvolvimento Backend .NET";
-        user.Email = "devdotnet@email.com";
-        user.Image = "https://image";
-        user.Name = "Felipe";
-        user.PasswordHash = "passwordhash";
-        user.Slug = "equipe-dev-dotnet";
+        Console.Write("Adicione um nome: ");
+        user.Name = Console.ReadLine();
+
+        Console.Write("Adicione uma Bio: ");
+        user.Bio = Console.ReadLine();
+
+        Console.Write("Adicione um Email: ");
+        user.Email = Console.ReadLine();
+
+        Console.Write("Adicione uma Imagem: ");
+        user.Image = Console.ReadLine();
+
+        Console.Write("Defina sua senha: ");
+        user.PasswordHash = Console.ReadLine();
+
+        Console.Write("Como te encontrar: ");
+        user.Slug = Console.ReadLine();
 
         connection.Open();
 
